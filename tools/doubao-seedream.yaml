@@ -1,0 +1,34 @@
+identity:
+  name: "doubao-seedream"
+  author: "stevenup"
+  label:
+    en_US: "doubao-seedream"
+    zh_Hans: "doubao-seedream"
+    pt_BR: "doubao-seedream"
+    ja_JP: "doubao-seedream"
+description:
+  human:
+    en_US: "Use doubao-seedream model to generate images"
+    zh_Hans: "Use doubao-seedream model to generate images"
+    pt_BR: "Use doubao-seedream model to generate images"
+    ja_JP: "Use doubao-seedream model to generate images"
+  llm: "Use doubao-seedream model to generate images"
+parameters:
+  - name: query
+    type: string
+    required: true
+    label:
+      en_US: Query string
+      zh_Hans: 查询语句
+      pt_BR: Query string
+      ja_JP: クエリ文字列
+    human_description:
+      en_US: "Use doubao-seedream model to generate images"
+      zh_Hans: "Use doubao-seedream model to generate images"
+      pt_BR: "Use doubao-seedream model to generate images"
+      ja_JP: "Use doubao-seedream model to generate images"
+    llm_description: "Use doubao-seedream model to generate images"
+    form: llm
+extra:
+  python:
+    source: tools/doubao-seedream.py

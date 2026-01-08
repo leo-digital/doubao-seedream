@@ -1,0 +1,37 @@
+version: 0.0.1
+type: plugin
+author: stevenup
+name: doubao-seedream
+label:
+  en_US: doubao-seedream
+  ja_JP: doubao-seedream
+  zh_Hans: doubao-seedream
+  pt_BR: doubao-seedream
+description:
+  en_US: Use doubao-seedream model to generate images
+  ja_JP: Use doubao-seedream model to generate images
+  zh_Hans: Use doubao-seedream model to generate images
+  pt_BR: Use doubao-seedream model to generate images
+icon: icon.svg
+icon_dark: icon-dark.svg
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+plugins:
+  tools:
+    - provider/doubao-seedream.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: null
+created_at: 2026-01-08T14:06:16.676719+08:00
+privacy: PRIVACY.md
+verified: false
