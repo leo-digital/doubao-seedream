@@ -13,6 +13,44 @@ identity:
     ja_JP: "Use doubao-seedream model to generate images"
   icon: "icon.svg"
 
+credentials_for_provider:
+  ark_api_key:
+    type: secret-input
+    required: true
+    label:
+      en_US: Ark API Key
+      zh_Hans: Ark API Key
+      pt_BR: Ark API Key
+      ja_JP: Ark API Key
+    placeholder:
+      en_US: Please input your Ark API Key
+      zh_Hans: 请输入你的 Ark API Key
+      pt_BR: Insira sua chave da Ark API
+      ja_JP: Ark API Key を入力してください
+    help:
+      en_US: Ark API Key for Volcano Engine Ark (Volcengine) to call Seedream.
+      zh_Hans: 火山方舟 Ark API Key，用于调用 Seedream。
+      pt_BR: Chave da Ark API da Volcano Engine (Volcengine) para chamar o Seedream.
+      ja_JP: Volcengine Ark の Ark API Key（Seedream 呼び出し用）です。
+  ark_base_url:
+    type: text-input
+    required: false
+    label:
+      en_US: Ark Base URL
+      zh_Hans: Ark Base URL
+      pt_BR: Ark Base URL
+      ja_JP: Ark Base URL
+    placeholder:
+      en_US: https://ark.cn-beijing.volces.com/api/v3
+      zh_Hans: https://ark.cn-beijing.volces.com/api/v3
+      pt_BR: https://ark.cn-beijing.volces.com/api/v3
+      ja_JP: https://ark.cn-beijing.volces.com/api/v3
+    help:
+      en_US: Optional. Ark base URL (default is https://ark.cn-beijing.volces.com/api/v3). Use your proxy base URL if needed.
+      zh_Hans: 可选。Ark Base URL（默认 https://ark.cn-beijing.volces.com/api/v3）。如需走公司代理，请填代理地址。
+      pt_BR: Opcional. URL base da Ark (padrão https://ark.cn-beijing.volces.com/api/v3). Use seu proxy se necessário.
+      ja_JP: 任意。Ark の Base URL（既定 https://ark.cn-beijing.volces.com/api/v3）。必要ならプロキシを指定してください。
+
 #########################################################################################
 # If you want to support OAuth, you can uncomment the following code.
 #########################################################################################

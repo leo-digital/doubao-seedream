@@ -5,12 +5,50 @@ from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 
 
 class DoubaoSeedreamProvider(ToolProvider):
-    
+
+    DEFAULT_ARK_BASE_URL = "https://ark.cn-beijing.volces.com/api/v3"
+
+    @staticmethod
+    def _normalize_base_url(base_url: str | None) -> str:
+        base_url = (base_url or "").strip()
+        if not base_url:
+            return DoubaoSeedreamProvider.DEFAULT_ARK_BASE_URL
+        if not (base_url.startswith("https://") or base_url.startswith("http://")):
+            raise ValueError("ARK_BASE_URL must start with http:// or https://")
+        return base_url.rstrip("/")
+
     def _validate_credentials(self, credentials: dict[str, Any]) -> None:
         try:
-            """
-            IMPLEMENT YOUR VALIDATION HERE
-            """
+            import json
+            import urllib.request
+
+            api_key = (credentials.get("ARK_API_KEY") or credentials.get("ark_api_key") or "").strip()
+            if not api_key:
+                raise ValueError("ARK_API_KEY is required")
+
+            base_url = self._normalize_base_url(
+                credentials.get("ARK_BASE_URL") or credentials.get("ark_base_url")
+            )
+
+            url = f"{base_url}/models"
+            request = urllib.request.Request(
+                url,
+                method="GET",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+            )
+
+            with urllib.request.urlopen(request, timeout=10) as response:
+                if response.status < 200 or response.status >= 300:
+                    raise ValueError(f"Ark /models request failed with status={response.status}")
+                payload = json.loads(response.read() or "{}")
+                if not isinstance(payload, dict) or "data" not in payload:
+                    raise ValueError(
+                        "Ark credentials validated but /models response is unexpected; "
+                        "please confirm ARK_BASE_URL points to /api/v3"
+                    )
         except Exception as e:
             raise ToolProviderCredentialValidationError(str(e))
 

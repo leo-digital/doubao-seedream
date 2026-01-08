@@ -12,23 +12,71 @@ description:
     zh_Hans: "Use doubao-seedream model to generate images"
     pt_BR: "Use doubao-seedream model to generate images"
     ja_JP: "Use doubao-seedream model to generate images"
-  llm: "Use doubao-seedream model to generate images"
+  llm: "Generate a single image from a text prompt using Doubao Seedream."
 parameters:
-  - name: query
+  - name: prompt
     type: string
     required: true
     label:
-      en_US: Query string
-      zh_Hans: 查询语句
-      pt_BR: Query string
-      ja_JP: クエリ文字列
+      en_US: Prompt
+      zh_Hans: 提示词
+      pt_BR: Prompt
+      ja_JP: プロンプト
     human_description:
-      en_US: "Use doubao-seedream model to generate images"
-      zh_Hans: "Use doubao-seedream model to generate images"
-      pt_BR: "Use doubao-seedream model to generate images"
-      ja_JP: "Use doubao-seedream model to generate images"
-    llm_description: "Use doubao-seedream model to generate images"
-    form: llm
+      en_US: "Text prompt to generate an image."
+      zh_Hans: "用于生成图片的文本提示词。"
+      pt_BR: "Prompt de texto para gerar uma imagem."
+      ja_JP: "画像生成のためのテキストプロンプト。"
+    llm_description: "Text prompt to generate an image."
+    form: form
+  - name: size
+    type: string
+    required: false
+    default: "2K"
+    label:
+      en_US: Size
+      zh_Hans: 尺寸
+      pt_BR: Tamanho
+      ja_JP: サイズ
+    human_description:
+      en_US: "Image size. Common values: 1K, 2K."
+      zh_Hans: "图片尺寸。常用值：1K、2K。"
+      pt_BR: "Tamanho da imagem. Valores comuns: 1K, 2K."
+      ja_JP: "画像サイズ。一般的な値: 1K, 2K。"
+    llm_description: "Image size. Default: 2K."
+    form: form
+  - name: watermark
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Watermark
+      zh_Hans: 水印
+      pt_BR: Marca d'água
+      ja_JP: 透かし
+    human_description:
+      en_US: "Whether to add watermark."
+      zh_Hans: "是否添加水印。"
+      pt_BR: "Adicionar marca d'água."
+      ja_JP: "透かしを追加するかどうか。"
+    llm_description: "Whether to add watermark. Default: false."
+    form: form
+  - name: model
+    type: string
+    required: false
+    default: "doubao-seedream-4-5-251128"
+    label:
+      en_US: Model
+      zh_Hans: 模型
+      pt_BR: Modelo
+      ja_JP: モデル
+    human_description:
+      en_US: "Ark model name. Default: doubao-seedream-4-5-251128."
+      zh_Hans: "Ark 模型名称。默认：doubao-seedream-4-5-251128。"
+      pt_BR: "Nome do modelo Ark. Padrão: doubao-seedream-4-5-251128."
+      ja_JP: "Ark のモデル名。既定: doubao-seedream-4-5-251128。"
+    llm_description: "Ark model name for image generation."
+    form: form
 extra:
   python:
     source: tools/doubao-seedream.py
