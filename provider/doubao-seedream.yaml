@@ -94,7 +94,8 @@ credentials_for_provider:
 #         en_US: "Access Token"
 
 tools:
-  - tools/doubao-seedream.yaml
+  - tools/text2image_sr_45.yaml
+  - tools/image2image_sr_45.yaml
 extra:
   python:
     source: provider/doubao-seedream.py

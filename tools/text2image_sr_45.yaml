@@ -1,15 +1,15 @@
 identity:
-  name: "doubao-seedream"
+  name: "text2image"
   author: "stevenup"
   label:
-    en_US: "doubao-seedream"
-    zh_Hans: "doubao-seedream"
-    pt_BR: "doubao-seedream"
-    ja_JP: "doubao-seedream"
+    en_US: "text2image"
+    zh_Hans: "文生图4.5"
+    pt_BR: "text2image"
+    ja_JP: "text2image"
 description:
   human:
     en_US: "Use doubao-seedream model to generate images"
-    zh_Hans: "Use doubao-seedream model to generate images"
+    zh_Hans: "文生图，使用Seedream4.5模型"
     pt_BR: "Use doubao-seedream model to generate images"
     ja_JP: "Use doubao-seedream model to generate images"
   llm: "Generate a single image from a text prompt using Doubao Seedream."
@@ -79,4 +79,4 @@ parameters:
     form: form
 extra:
   python:
-    source: tools/doubao-seedream.py
+    source: tools/text2image_sr_45.py
