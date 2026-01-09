@@ -61,6 +61,35 @@ parameters:
       ja_JP: "透かしを追加するかどうか。"
     llm_description: "Whether to add watermark. Default: false."
     form: form
+  - name: generation_type
+    type: select
+    required: false
+    default: single
+    label:
+      en_US: Generation Type
+      zh_Hans: 生成类型
+      pt_BR: Tipo de Geração
+      ja_JP: 生成タイプ
+    human_description:
+      en_US: "Generation type: Single Image or Multiple Images."
+      zh_Hans: "生成类型：单图或多图。"
+      pt_BR: "Tipo de geração: Imagem única ou múltiplas imagens."
+      ja_JP: "生成タイプ：単一画像または複数画像。"
+    llm_description: "Generation type: single (single image) or multiple (multiple images). Default: single."
+    options:
+      - value: single
+        label:
+          en_US: Single Image
+          zh_Hans: 单图
+          pt_BR: Imagem Única
+          ja_JP: 単一画像
+      - value: multiple
+        label:
+          en_US: Multiple Images
+          zh_Hans: 多图
+          pt_BR: Múltiplas Imagens
+          ja_JP: 複数画像
+    form: form
   - name: model
     type: string
     required: false
