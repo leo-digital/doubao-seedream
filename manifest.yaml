@@ -1,17 +1,17 @@
 version: 0.0.1
 type: plugin
-author: stevenup
+author: leo-digital
 name: doubao-seedream
 label:
-  en_US: doubao-seedream
-  ja_JP: doubao-seedream
-  zh_Hans: doubao-seedream
-  pt_BR: doubao-seedream
+  en_US: Doubao Seedream
+  ja_JP: 豆包Seedream
+  zh_Hans: 豆包Seedream
+  pt_BR: Doubao Seedream
 description:
-  en_US: Use doubao-seedream model to generate images
-  ja_JP: Use doubao-seedream model to generate images
-  zh_Hans: Use doubao-seedream model to generate images
-  pt_BR: Use doubao-seedream model to generate images
+  en_US: Generate images using the Doubao Seedream V4.5 model.
+  ja_JP: 豆包Seedream V4.5モデルを使用して画像を生成します。
+  zh_Hans: 使用豆包Seedream V4.5模型实现图片生成。
+  pt_BR: Gerar imagens usando o modelo Doubao Seedream V4.5.
 icon: icon.svg
 icon_dark: icon-dark.svg
 resource:
