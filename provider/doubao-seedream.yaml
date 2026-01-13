@@ -50,7 +50,6 @@ credentials_for_provider:
       zh_Hans: 可选。Ark Base URL（默认 https://ark.cn-beijing.volces.com/api/v3）。如需走公司代理，请填代理地址。
       pt_BR: Opcional. URL base da Ark (padrão https://ark.cn-beijing.volces.com/api/v3). Use seu proxy se necessário.
       ja_JP: 任意。Ark の Base URL（既定 https://ark.cn-beijing.volces.com/api/v3）。必要ならプロキシを指定してください。
-
 #########################################################################################
 # If you want to support OAuth, you can uncomment the following code.
 #########################################################################################
@@ -94,6 +93,7 @@ credentials_for_provider:
 #         en_US: "Access Token"
 
 tools:
+  - tools/createimage_sr_45.yaml
   - tools/text2image_sr_45.yaml
   - tools/image2image_sr_45.yaml
 extra:
