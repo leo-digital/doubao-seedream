@@ -1,6 +1,6 @@
 identity:
   name: "text2image"
-  author: "stevenup"
+  author: "leo-digital"
   label:
     en_US: "text2image"
     zh_Hans: "文生图4.5"

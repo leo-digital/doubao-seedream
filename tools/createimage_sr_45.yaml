@@ -1,6 +1,6 @@
 identity:
   name: "createimage"
-  author: "stevenup"
+  author: "leo-digital"
   label:
     en_US: "createimage"
     zh_Hans: "图片生成4.5"
