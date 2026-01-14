@@ -1,18 +1,18 @@
 identity:
-  name: "createimage"
+  name: "ImageGenerations"
   author: "leo-digital"
   label:
-    en_US: "createimage"
+    en_US: "ImageGenerations"
     zh_Hans: "图片生成4.5"
 description:
   human:
-    en_US: "Use doubao-seedream model to generate images"
-    zh_Hans: "图生图，使用Seedream4.5模型"
-  llm: "Generate a single image from a text prompt using Doubao Seedream."
+    en_US: "Use doubao-seedream-4.5 model to generate images"
+    zh_Hans: "使用 doubao-seedream-4.5 模型生成图像"
+  llm: "Generate images using Doubao Seedream 4.5 based on."
 output_schema:
   type: object
   properties:
-    data:
+    images:
       type: array
       items:
         type: object
@@ -26,46 +26,35 @@ parameters:
     type: boolean
     required: true
     label:
-      en_US: Group Images
+      en_US: Whether to generate a group images
       zh_Hans: 是否生成组图
     human_description:
       en_US: "Text prompt to generate an image."
-      zh_Hans: "默认生成单图"
-    llm_description: "Text prompt to generate an image."
+      zh_Hans: "True 为生成组图，False 为单图。默认生成单图"
+    llm_description: "True means generating a group of images, False means generating a single image. By default, a single image is generated."
     default: false
-    form: form
-  - name: max_images
-    type: number
-    required: false
-    label:
-      en_US: Count
-      zh_Hans: 生成组图数量
-    human_description:
-      en_US: "Text prompt to generate an image."
-      zh_Hans: "生成组图数量"
-    llm_description: "Text prompt to generate an image."
     form: form
   - name: prompt
     type: string
     required: true
     label:
-      en_US: Prompt
-      zh_Hans: 提示词
+      en_US: Prompt words for image generation
+      zh_Hans: 文本提示词
     human_description:
-      en_US: "Text prompt to generate an image."
-      zh_Hans: "用于生成图片的文本提示词。"
-    llm_description: "Text prompt to generate an image."
+      en_US: "Prompt words for image generation, supporting both Chinese and English."
+      zh_Hans: "文本提示词，用于生成图像的提示词"
+    llm_description: "Prompt words for image generation."
     form: form
   - name: image
     type: files
     required: false
     label:
-      en_US: Image
-      zh_Hans: 图片
+      en_US: Image list
+      zh_Hans: 图片列表
     human_description:
-      en_US: "Image to use as a starting point for image generation."
-      zh_Hans: "输入的图片信息"
-    llm_description: "Text prompt to generate an image."
+      en_US: "Pass in the list of node images."
+      zh_Hans: "传入节点图片列表"
+    llm_description: "Pass in the list of node images."
     form: form
   - name: size
     type: select
@@ -121,31 +110,31 @@ parameters:
           en_US: "customize"
         value: "customize"
     human_description:
-      en_US: "Image size. Common values: 1K, 2K."
-      zh_Hans: "图片尺寸。常用值：2K、4K。"
-    llm_description: "Image size. Default: 2K."
+      en_US: "Image size. Common values: 2K, 4K. Selecting 'customize' allows you to customize the image width and height. Default value: 2K"
+      zh_Hans: "图片尺寸。常用值：2K、4K。选择自定义可自定义图片宽高。默认值：2K"
+    llm_description: "Image size. Common values: 2K, 4K. Selecting 'customize' allows you to customize the image width and height. Default value: 2K."
     form: form
   - name: width
     type: number
     required: false
     label:
-      en_US: Width
+      en_US: Custom width
       zh_Hans: 自定义宽度
     human_description:
-      en_US: "Image to use as a starting point for image generation."
-      zh_Hans: "自定义图片宽度"
-    llm_description: "Text prompt to generate an image."
+      en_US: "Customize the image width. The total pixel range of width * height is [3686400, 16777216], and the range of width/height is [1/16, 16]."
+      zh_Hans: "自定义图片宽度，宽度*高度的总像素范围 [3686400, 16777216]，宽度/高度的范围 [1/16, 16]"
+    llm_description: "Customize the image width."
     form: form
   - name: height
     type: number
     required: false
     label:
-      en_US: Height
+      en_US: Custom height
       zh_Hans: 自定义高度
     human_description:
-      en_US: "Image to use as a starting point for image generation."
-      zh_Hans: "自定义图片高度"
-    llm_description: "Text prompt to generate an image."
+      en_US: "Customize the image height. The total pixel range of width * height is [3686400, 16777216], and the range of width/height is [1/16, 16]."
+      zh_Hans: "自定义图片高度，宽度*高度的总像素范围 [3686400, 16777216]，宽度/高度的范围 [1/16, 16]"
+    llm_description: "Customize the image height."
     form: form
   - name: watermark
     type: boolean
@@ -154,31 +143,11 @@ parameters:
     label:
       en_US: Watermark
       zh_Hans: 水印
-      pt_BR: Marca d'água
-      ja_JP: 透かし
     human_description:
       en_US: "Whether to add watermark."
-      zh_Hans: "是否添加水印。"
-      pt_BR: "Adicionar marca d'água."
-      ja_JP: "透かしを追加するかどうか。"
+      zh_Hans: "生成图片是否包含水印，True 为生成，False为不生成，默认为不生成"
     llm_description: "Whether to add watermark. Default: false."
     form: form
-  # - name: model
-  #   type: string
-  #   required: false
-  #   default: "doubao-seedream-4-5-251128"
-  #   label:
-  #     en_US: Model
-  #     zh_Hans: 模型
-  #     pt_BR: Modelo
-  #     ja_JP: モデル
-  #   human_description:
-  #     en_US: "Ark model name. Default: doubao-seedream-4-5-251128."
-  #     zh_Hans: "Ark 模型名称。默认：doubao-seedream-4-5-251128。"
-  #     pt_BR: "Nome do modelo Ark. Padrão: doubao-seedream-4-5-251128."
-  #     ja_JP: "Ark のモデル名。既定: doubao-seedream-4-5-251128。"
-  #   llm_description: "Ark model name for image generation."
-  #   form: form
 extra:
   python:
     source: tools/createimage_sr_45.py

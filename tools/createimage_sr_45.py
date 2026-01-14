@@ -72,7 +72,6 @@ class DoubaoSeedreamTool(Tool):
             raise ValueError("Missing provider credential: ARK_API_KEY")
 
         generation = tool_parameters.get('sequential_image_generation', False) # 是否生成组图
-        maxImages = tool_parameters.get('max_images', 15) # 组图数量
         prompt = tool_parameters.get('prompt')  # 提示语
         files = tool_parameters.get('image')   # 图片
         size = tool_parameters.get('size', '2K')  # 生成的图片尺寸
@@ -82,10 +81,6 @@ class DoubaoSeedreamTool(Tool):
 
         # 如果generation为True, sequential_image_generation这个变量设置为auto, 否则设置为disabled
         sequential_image_generation = "auto" if generation else "disabled"
-
-        # 如果maxImages大于15或者小于1，就抛出错误
-        if generation and (maxImages > 15 or maxImages < 1):
-            raise ValueError("生成组图数量范围1-15")
         
         # 如果prompt为空，就抛出错误
         if not prompt:
@@ -119,7 +114,6 @@ class DoubaoSeedreamTool(Tool):
                 image.append(data_url)
 
         # print(f"sequential: {sequential_image_generation}")
-        # print(f"maxImages: {maxImages}")
         # print(f"prompt: {prompt}")
         # print(f"files: {files}")
         # print(f"size: {size}")
@@ -150,27 +144,12 @@ class DoubaoSeedreamTool(Tool):
             image=image,
             size=size,
             sequential_image_generation=sequential_image_generation,
-            sequential_image_generation_options=SequentialImageGenerationOptions(max_images=maxImages),
             response_format="url",
             watermark=watermark,
         )
 
         result = []
         data = getattr(response, "data", None)
-
-
-        # if isinstance(data, list) and data:
-        #     first = data[0]
-        #     if isinstance(first, dict):
-        #         url = first.get("url")
-        #     else:
-        #         url = getattr(first, "url", None)
-
-        # if not url and isinstance(response, dict):
-        #     try:
-        #         url = response["data"][0]["url"]
-        #     except Exception:
-        #         url = None
 
         # 判断data是否为空
         if not data:
@@ -181,13 +160,4 @@ class DoubaoSeedreamTool(Tool):
                 for img in data:
                     result.append({"url": img.url, "size": img.size})
 
-        # print(url)
-        # result = {
-        #     "message": "sdfsdf"
-        # }
-        # yield self.create_json_message(result)
-        # user_data = [{
-        #     "url": "aa",
-        #     "size": "bb"
-        # }]
-        yield self.create_variable_message("data", result)
+        yield self.create_variable_message("images", result)
