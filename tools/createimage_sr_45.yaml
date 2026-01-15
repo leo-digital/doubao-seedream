@@ -29,7 +29,7 @@ parameters:
       en_US: Whether to generate a group images
       zh_Hans: 是否生成组图
     human_description:
-      en_US: "Text prompt to generate an image."
+      en_US: "Whether to generate a group of images (up to 15). True for group, False for single."
       zh_Hans: "True 为生成组图，False 为单图。默认生成单图"
     llm_description: "True means generating a group of images, False means generating a single image. By default, a single image is generated."
     default: false
@@ -60,7 +60,6 @@ parameters:
     type: select
     required: false
     default: "2K"
-    disabled: true
     label:
       en_US: Size
       zh_Hans: 尺寸

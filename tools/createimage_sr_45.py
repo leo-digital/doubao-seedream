@@ -77,7 +77,7 @@ class DoubaoSeedreamTool(Tool):
         size = tool_parameters.get('size', '2K')  # 生成的图片尺寸
         width = tool_parameters.get('width', 1)  # 自定义图片宽度
         height = tool_parameters.get('height', 1)  # 自定义图片高度
-        watermark = tool_parameters.get('watermark', True)  # 是否添加水印
+        watermark = tool_parameters.get('watermark', False)  # 是否添加水印
 
         # 如果generation为True, sequential_image_generation这个变量设置为auto, 否则设置为disabled
         sequential_image_generation = "auto" if generation else "disabled"
