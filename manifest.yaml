@@ -12,8 +12,8 @@ description:
   ja_JP: 豆包Seedream V4.5モデルを使用して画像を生成します。
   zh_Hans: 使用豆包Seedream V4.5模型实现图片生成。
   pt_BR: Gerar imagens usando o modelo Doubao Seedream V4.5.
-icon: icon.svg
-icon_dark: icon-dark.svg
+icon: icon.png
+icon_dark: icon-dark.png
 resource:
   memory: 268435456
   permission:
@@ -32,6 +32,6 @@ meta:
     version: "3.12"
     entrypoint: main
   minimum_dify_version: null
-created_at: 2026-01-08T14:06:16.676719+08:00
+created_at: 2026-01-08T14:06:16Z
 privacy: PRIVACY.md
 verified: false

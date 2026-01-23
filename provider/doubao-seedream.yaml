@@ -7,7 +7,7 @@ identity:
   description:
     en_US: "Use doubao-seedream model to generate images"
     zh_Hans: "使用 doubao-seedream 模型生成图像"
-  icon: "icon.svg"
+  icon: icon.png
 
 credentials_for_provider:
   ark_api_key:
