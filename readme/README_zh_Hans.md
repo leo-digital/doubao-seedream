@@ -1,13 +1,14 @@
 # 豆包 Seedream 插件
 
-使用火山引擎（Volcengine）的 **Doubao Seedream V4.5** 模型，实现高质量的图片生成功能。
+使用火山引擎（Volcengine）的 **Doubao Seedream V4.5** 与 **Seedream 5.0-lite** 模型，实现高质量的图片生成功能。
 
 ## 功能特性
 
 - **文生图 (Text-to-Image)**：通过文字描述生成高清图片。
 - **图生图 (Image-to-Image)**：支持参考图 + 提示词进行创作。
 - **组图生成**：支持一次性生成多张连贯的图片（最多15张）。
-- **高度定制**：支持 1K、2K 尺寸，或自定义宽高比。
+- **高度定制**：支持 2K、3K 尺寸，或自定义宽高比。
+- **更多能力（5.0-lite）**：支持输出 PNG，支持联网搜索（可选）。
 
 ## 配置指南
 
@@ -23,6 +24,7 @@
 | **文生图 (Text-to-Image)** | 纯文字生成图片 | `prompt` (必填), `size`, `watermark` |
 | **图生图 (Image-to-Image)** | 基于参考图和文字生成 | `prompt`, `image`, `sequential_image_generation` (组图) |
 | **创建图片 (Create Image)** | 通用生成接口 | `prompt`, `size`, `model` |
+| **图片生成 5.0-lite** | 支持 3K、PNG、联网搜索 | `prompt`, `size`, `output_format`, `web_search`, `image`, `sequential_image_generation` |
 
 ## 注意事项
 
