@@ -160,4 +160,7 @@ class DoubaoSeedreamTool(Tool):
                 for img in data:
                     result.append({"url": img.url, "size": img.size})
 
+        # 将result数组中的图片url拼接成Markdown格式 ![](url)
+        markdown_images = ''.join([f"![]({img['url']})" for img in result])
+        yield self.create_text_message(markdown_images)
         yield self.create_variable_message("images", result)
