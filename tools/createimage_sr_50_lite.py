@@ -2,14 +2,19 @@ from collections.abc import Generator
 from typing import Any
 
 import base64
+import json
+import logging
+import sys
 
 import requests
 from dify_plugin import Tool
 from dify_plugin.entities.tool import ToolInvokeMessage
 
+logger = logging.getLogger(__name__)
+
 
 class DoubaoSeedream50LiteTool(Tool):
-    DEFAULT_MODEL = "doubao-seedream-5-0-lite-260128"
+    DEFAULT_MODEL = "doubao-seedream-5-0-260128"
     DEFAULT_SIZE = "2K"
     DEFAULT_OUTPUT_FORMAT = "jpeg"
     DEFAULT_ARK_BASE_URL = "https://ark.cn-beijing.volces.com/api/v3"
@@ -132,38 +137,43 @@ class DoubaoSeedream50LiteTool(Tool):
             raise ValueError("output_format must be one of: jpeg, png")
         return normalized
 
-    @staticmethod
-    def _parse_images_response_payload(payload: dict[str, Any]) -> list[dict[str, str]]:
-        if not isinstance(payload, dict):
-            raise RuntimeError("Ark response is not a JSON object")
+    @classmethod
+    def _dump_response_for_log(cls, response: Any) -> dict[str, Any] | str:
+        """
+        尽量把 SDK 返回对象 dump 成可 JSON 序列化的 dict，便于打印完整响应。
+        失败时回退为 str(response)。
+        """
+        if response is None:
+            return {}
+        if isinstance(response, dict):
+            return response
 
-        error = payload.get("error")
-        if isinstance(error, dict):
-            message = error.get("message") or "Ark API error"
-            raise RuntimeError(str(message))
+        dump_fn = getattr(response, "model_dump", None)
+        if callable(dump_fn):
+            try:
+                dumped = dump_fn(mode="json")
+                if isinstance(dumped, dict):
+                    return dumped
+            except TypeError:
+                try:
+                    dumped = dump_fn()
+                    if isinstance(dumped, dict):
+                        return dumped
+                except Exception:
+                    return str(response)
+            except Exception:
+                return str(response)
 
-        data = payload.get("data")
-        if not data:
-            raise RuntimeError("生成图片失败")
+        to_dict_fn = getattr(response, "to_dict", None)
+        if callable(to_dict_fn):
+            try:
+                dumped = to_dict_fn()
+                if isinstance(dumped, dict):
+                    return dumped
+            except Exception:
+                return str(response)
 
-        result: list[dict[str, str]] = []
-        first_error_message: str | None = None
-
-        if isinstance(data, list):
-            for item in data:
-                if not isinstance(item, dict):
-                    continue
-                if "url" in item and item.get("url"):
-                    result.append({"url": str(item["url"]), "size": str(item.get("size") or "")})
-                    continue
-                item_error = item.get("error")
-                if first_error_message is None and isinstance(item_error, dict):
-                    first_error_message = str(item_error.get("message") or "生成图片失败")
-
-        if not result:
-            raise RuntimeError(first_error_message or "生成图片失败")
-
-        return result
+        return str(response)
 
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
         credentials = self._get_credentials()
@@ -199,61 +209,81 @@ class DoubaoSeedream50LiteTool(Tool):
 
         tools: list | None = [ContentGenerationTool(type="web_search")] if web_search else None
 
+        sdk_kwargs: dict[str, Any] = {
+            "model": self.DEFAULT_MODEL,
+            "prompt": prompt,
+            "size": size,
+            "sequential_image_generation": sequential_image_generation,
+            "response_format": "url",
+            "watermark": watermark,
+            "output_format": output_format,
+        }
+        if image:
+            sdk_kwargs["image"] = image
+        if tools:
+            sdk_kwargs["tools"] = tools
+
+        request_body: dict[str, Any] = {
+            **sdk_kwargs,
+            "tools": [{"type": "web_search"}] if web_search else None,
+        }
+
         client = Ark(api_key=api_key, base_url=base_url)
 
-        try:
-            response = client.images.generate(
-                model=self.DEFAULT_MODEL,
-                prompt=prompt,
-                image=image,
-                size=size,
-                sequential_image_generation=sequential_image_generation,
-                response_format="url",
-                watermark=watermark,
-                output_format=output_format,
-                tools=tools,
-            )
+        def _log(via: str, req: dict[str, Any], resp: Any) -> None:
+            sdk_version = None
+            try:
+                from importlib.metadata import PackageNotFoundError, version
 
-            data = getattr(response, "data", None)
-            if not data:
-                raise RuntimeError("生成图片失败")
+                try:
+                    sdk_version = version("volcengine-python-sdk")
+                except PackageNotFoundError:
+                    sdk_version = None
+            except Exception:
+                sdk_version = None
 
-            result: list[dict[str, str]] = []
-            if isinstance(data, list):
-                for img in data:
-                    url = getattr(img, "url", None)
-                    if url:
-                        result.append({"url": str(url), "size": str(getattr(img, "size", "") or "")})
-
-            if not result:
-                raise RuntimeError("生成图片失败")
-        except TypeError:
-            url = f"{base_url}/images/generations"
-            payload: dict[str, Any] = {
-                "model": self.DEFAULT_MODEL,
-                "prompt": prompt,
-                "size": size,
-                "sequential_image_generation": sequential_image_generation,
-                "response_format": "url",
-                "watermark": watermark,
-                "output_format": output_format,
+            log_req = dict(req)
+            if "image" in log_req and isinstance(log_req["image"], list):
+                log_req["image"] = [f"<{len(img)} chars>" for img in log_req["image"]]
+            resp_dump = self._dump_response_for_log(resp)
+            if isinstance(resp_dump, dict):
+                if resp_dump.get("created_at") is None:
+                    resp_dump.pop("created_at", None)
+                if resp_dump.get("tool") is None:
+                    resp_dump.pop("tool", None)
+            log_obj: dict[str, Any] = {
+                "python": sys.version.split()[0],
+                "volcengine_python_sdk": sdk_version,
+                "base_url": base_url,
+                "request": log_req,
+                "response": resp_dump,
             }
-            if image:
-                payload["image"] = image
-            if tools:
-                payload["tools"] = [t.model_dump(mode="json") for t in tools]
-
-            resp = requests.post(
-                url,
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json",
-                },
-                json=payload,
-                timeout=120,
+            msg = json.dumps(
+                log_obj,
+                ensure_ascii=False,
+                separators=(",", ":"),
+                default=str,
             )
-            resp.raise_for_status()
-            result = self._parse_images_response_payload(resp.json())
+            logger.info("seedream_5_0_lite.debug %s %s", via, msg)
+            print("seedream_5_0_lite.debug", via, msg)
+
+        response = client.images.generate(**sdk_kwargs)
+
+        data = getattr(response, "data", None)
+        if not data:
+            raise RuntimeError("生成图片失败")
+
+        result: list[dict[str, str]] = []
+        if isinstance(data, list):
+            for img in data:
+                url = getattr(img, "url", None)
+                if url:
+                    result.append({"url": str(url), "size": str(getattr(img, "size", "") or "")})
+
+        if not result:
+            raise RuntimeError("生成图片失败")
+
+        _log("sdk", request_body, response)
 
         markdown_images = "".join([f"![]({img['url']})" for img in result])
         yield self.create_text_message(markdown_images)
