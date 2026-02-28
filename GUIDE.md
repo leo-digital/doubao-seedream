@@ -64,7 +64,7 @@ plugins:
 
 # Runtime metadata
 meta:
-  version: 0.0.1               # Manifest format version
+  version: 1.0.0               # Manifest format version
   arch:
     - amd64
     - arm64
@@ -101,7 +101,7 @@ Study these examples to understand plugin implementation:
    REMOTE_INSTALL_KEY=your-debug-key
    ```
 
-2. Run your plugin: 
+2. Run your plugin:
    ```bash
    python -m main
    ```

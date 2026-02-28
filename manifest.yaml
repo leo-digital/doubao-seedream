@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 1.0.0
 type: plugin
 author: leo-digital
 name: doubao-seedream
@@ -23,7 +23,7 @@ plugins:
   tools:
     - provider/doubao-seedream.yaml
 meta:
-  version: 0.0.1
+  version: 1.0.0
   arch:
     - amd64
     - arm64
