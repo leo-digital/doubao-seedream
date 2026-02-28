@@ -41,8 +41,8 @@ parameters:
       en_US: Web search
       zh_Hans: 联网搜索
     human_description:
-      en_US: "Enable web search tool (the model will decide whether to search)."
-      zh_Hans: "开启联网搜索工具（模型将自行判断是否进行搜索）。"
+      en_US: "Enable web search tool (the model will decide whether to search). Web search is only effective for text-to-image."
+      zh_Hans: "开启联网搜索工具（模型将自行判断是否进行搜索）。联网搜索只对文生图有效。"
     llm_description: "Enable web search tool for time-sensitive knowledge. Default: false."
     default: false
     form: form
