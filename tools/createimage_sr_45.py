@@ -74,6 +74,7 @@ class DoubaoSeedreamTool(Tool):
         generation = tool_parameters.get('sequential_image_generation', False) # 是否生成组图
         prompt = tool_parameters.get('prompt')  # 提示语
         files = tool_parameters.get('image')   # 图片
+        imageUrls = tool_parameters.get('image_urls')  # 图片URL列表
         size = tool_parameters.get('size', '2K')  # 生成的图片尺寸
         width = tool_parameters.get('width', 1)  # 自定义图片宽度
         height = tool_parameters.get('height', 1)  # 自定义图片高度
@@ -81,7 +82,8 @@ class DoubaoSeedreamTool(Tool):
 
         # 如果generation为True, sequential_image_generation这个变量设置为auto, 否则设置为disabled
         sequential_image_generation = "auto" if generation else "disabled"
-        
+
+
         # 如果prompt为空，就抛出错误
         if not prompt:
             raise ValueError("请填写提示语")
@@ -112,22 +114,18 @@ class DoubaoSeedreamTool(Tool):
                 data_url = f"data:{file.mime_type};base64,{base64_data}"
                 # 将data_url添加到image数组中
                 image.append(data_url)
+        # 处理 imageUrls：若不为空，则兼容半角/中文逗号分割，转为列表后与 images 合并
+        if imageUrls:
+            if isinstance(imageUrls, str):
+                # 统一替换中文逗号为半角逗号后分割
+                url_list = [u.strip() for u in imageUrls.replace("，", ",").split(",") if u.strip()]
+                image.extend(url_list)
 
-        # print(f"sequential: {sequential_image_generation}")
-        # print(f"prompt: {prompt}")
-        # print(f"files: {files}")
-        # print(f"size: {size}")
-        # print(f"width: {width}")
-        # print(f"height: {height}")
-        # print(f"image: {image}")
-
+        # print(image)
         base_url = self._normalize_base_url(credentials.get("ARK_BASE_URL") or credentials.get("ark_base_url"))
 
 
         model = self.DEFAULT_MODEL
-
-        # print(f"model: {model}")
-
 
         try:
             from volcenginesdkarkruntime import Ark

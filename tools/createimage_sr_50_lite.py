@@ -193,10 +193,17 @@ class DoubaoSeedream50LiteTool(Tool):
         sequential_image_generation = "auto" if generation else "disabled"
 
         files = tool_parameters.get("image")
+        imageUrls = tool_parameters.get('image_urls')  # 图片URL列表
         image = self._build_images_payload(files)
-
+        
         size = self._normalize_size(tool_parameters)
         base_url = self._normalize_base_url(credentials.get("ARK_BASE_URL") or credentials.get("ark_base_url"))
+
+        if imageUrls:
+            if isinstance(imageUrls, str):
+                # 统一替换中文逗号为半角逗号后分割
+                url_list = [u.strip() for u in imageUrls.replace("，", ",").split(",") if u.strip()]
+                image.extend(url_list)
 
         try:
             from volcenginesdkarkruntime import Ark

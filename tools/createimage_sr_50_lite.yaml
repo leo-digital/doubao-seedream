@@ -68,6 +68,17 @@ parameters:
       zh_Hans: "参考图片列表（最多 14 张）"
     llm_description: "Reference image list (up to 14)."
     form: form
+  - name: image_urls
+    type: string
+    required: false
+    label:
+      en_US: Image URLs
+      zh_Hans: 图片URL列表
+    human_description:
+      en_US: "Pass in the list of image URLs to be used as references for image generation, separated by half-width commas.eg. https://a.cn/img.png,https://a.cn/img2.png"
+      zh_Hans: "传入要用作图像生成参考的图片URL列表，使用半角逗号分隔，eg. https://a.cn/img.png,https://a.cn/img2.png"
+    llm_description: "Pass in the URL of the image to be used as a reference for image generation."
+    form: form
   - name: size
     type: select
     required: false
