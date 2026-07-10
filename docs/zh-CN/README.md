@@ -1,6 +1,6 @@
 # 豆包 Seedream Dify 插件
 
-**简体中文** | [English](docs/en-US/README.md)
+**简体中文** | [English](../en-US/README.md)
 
 [![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/leo-digital/doubao-seedream)
 [![Latest Model](https://img.shields.io/badge/latest-Seedream_5.0_Pro-brightgreen)](https://www.volcengine.com/docs/82379/1824121)
@@ -16,7 +16,7 @@
 - 支持文生单图、单图参考编辑，以及最多 10 张输入图的多图参考生成。
 - 支持 1K/2K 分辨率档位、官方宽高比预设、自定义尺寸，以及 PNG/JPEG 输出。
 
-完整版本历史请查看[更新日志](docs/zh-CN/CHANGELOG.md)。
+完整版本历史请查看[更新日志](../zh-CN/CHANGELOG.md)。
 
 ## 功能特性
 
@@ -74,4 +74,4 @@ pip install -r requirements.txt
 
 ## 隐私政策
 
-本项目隐私条款见 [PRIVACY.md](PRIVACY.md)。
+本项目隐私条款见 [PRIVACY.md](../../PRIVACY.md)。
