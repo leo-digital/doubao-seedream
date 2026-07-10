@@ -79,6 +79,7 @@ credentials_for_provider:
 tools:
   - tools/createimage_sr_45.yaml
   - tools/createimage_sr_50_lite.yaml
+  - tools/createimage_sr_50_pro.yaml
 extra:
   python:
     source: provider/doubao-seedream.py

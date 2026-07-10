@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-07-10
+
+### Added
+- Add a dedicated **Seedream 5.0-pro** tool using model `doubao-seedream-5-0-pro-260628`.
+- Support 1K/2K and official aspect-ratio presets, custom sizes, PNG/JPEG output, and up to 10 reference images.
+
+### Changed
+- Update plugin metadata and documentation for Seedream 5.0-pro.
+
 ## [1.0.1] - 2026-03-06
 
 ### Added

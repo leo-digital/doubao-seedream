@@ -1,0 +1,204 @@
+identity:
+  name: "ImageGenerations50Pro"
+  author: "leo-digital"
+  label:
+    en_US: "ImageGenerations (5.0-pro)"
+    zh_Hans: "图片生成5.0-pro"
+description:
+  human:
+    en_US: "Use doubao-seedream-5.0-pro for high-precision single-image generation and editing."
+    zh_Hans: "使用 doubao-seedream-5.0-pro 进行高精度单图生成与编辑。"
+  llm: "Generate or edit one image with Doubao Seedream 5.0 Pro using text and up to 10 reference images."
+output_schema:
+  type: object
+  properties:
+    images:
+      type: array
+      items:
+        type: object
+        properties:
+          url:
+            type: string
+          size:
+            type: string
+parameters:
+  - name: prompt
+    type: string
+    required: true
+    label:
+      en_US: Prompt words for image generation
+      zh_Hans: 文本提示词
+    human_description:
+      en_US: "Prompt for generating or editing an image. Chinese and English are supported."
+      zh_Hans: "用于生成或编辑图像的提示词，支持中文和英文。"
+    llm_description: "Prompt for generating or editing a single image."
+    form: form
+  - name: image
+    type: files
+    required: false
+    label:
+      en_US: Reference images
+      zh_Hans: 参考图片
+    human_description:
+      en_US: "Reference image list (up to 10 images)."
+      zh_Hans: "参考图片列表（最多 10 张）。"
+    llm_description: "Optional reference images for single-image or multi-image editing, up to 10 images."
+    form: form
+  - name: image_urls
+    type: string
+    required: false
+    label:
+      en_US: Reference image URLs
+      zh_Hans: 参考图片 URL
+    human_description:
+      en_US: "Comma-separated reference image URLs. Uploaded images and URLs combined must not exceed 10."
+      zh_Hans: "以逗号分隔的参考图片 URL；与上传图片合计最多 10 张。"
+    llm_description: "Comma-separated reference image URLs; combined with uploaded images, up to 10."
+    form: form
+  - name: size
+    type: select
+    required: false
+    default: "2K"
+    label:
+      en_US: Size
+      zh_Hans: 尺寸
+    options:
+      - label:
+          zh_Hans: "1K"
+          en_US: "1K"
+        value: "1K"
+      - label:
+          zh_Hans: "2K"
+          en_US: "2K"
+        value: "2K"
+      - label:
+          zh_Hans: "1K 1:1[1024x1024]"
+          en_US: "1K 1:1[1024x1024]"
+        value: "1024x1024"
+      - label:
+          zh_Hans: "1K 4:3[1152x864]"
+          en_US: "1K 4:3[1152x864]"
+        value: "1152x864"
+      - label:
+          zh_Hans: "1K 3:4[864x1152]"
+          en_US: "1K 3:4[864x1152]"
+        value: "864x1152"
+      - label:
+          zh_Hans: "1K 16:9[1424x800]"
+          en_US: "1K 16:9[1424x800]"
+        value: "1424x800"
+      - label:
+          zh_Hans: "1K 9:16[800x1424]"
+          en_US: "1K 9:16[800x1424]"
+        value: "800x1424"
+      - label:
+          zh_Hans: "1K 3:2[1248x832]"
+          en_US: "1K 3:2[1248x832]"
+        value: "1248x832"
+      - label:
+          zh_Hans: "1K 2:3[832x1248]"
+          en_US: "1K 2:3[832x1248]"
+        value: "832x1248"
+      - label:
+          zh_Hans: "1K 21:9[1568x672]"
+          en_US: "1K 21:9[1568x672]"
+        value: "1568x672"
+      - label:
+          zh_Hans: "2K 1:1[2048x2048]"
+          en_US: "2K 1:1[2048x2048]"
+        value: "2048x2048"
+      - label:
+          zh_Hans: "2K 4:3[2368x1776]"
+          en_US: "2K 4:3[2368x1776]"
+        value: "2368x1776"
+      - label:
+          zh_Hans: "2K 3:4[1776x2368]"
+          en_US: "2K 3:4[1776x2368]"
+        value: "1776x2368"
+      - label:
+          zh_Hans: "2K 16:9[2816x1584]"
+          en_US: "2K 16:9[2816x1584]"
+        value: "2816x1584"
+      - label:
+          zh_Hans: "2K 9:16[1584x2816]"
+          en_US: "2K 9:16[1584x2816]"
+        value: "1584x2816"
+      - label:
+          zh_Hans: "2K 3:2[2496x1664]"
+          en_US: "2K 3:2[2496x1664]"
+        value: "2496x1664"
+      - label:
+          zh_Hans: "2K 2:3[1664x2496]"
+          en_US: "2K 2:3[1664x2496]"
+        value: "1664x2496"
+      - label:
+          zh_Hans: "2K 21:9[3136x1344]"
+          en_US: "2K 21:9[3136x1344]"
+        value: "3136x1344"
+      - label:
+          zh_Hans: "自定义"
+          en_US: "Customize"
+        value: "customize"
+    human_description:
+      en_US: "Choose 1K/2K, an official aspect-ratio preset, or custom dimensions."
+      zh_Hans: "可选 1K/2K、官方宽高比预设，或自定义宽高。"
+    llm_description: "Output size: 1K, 2K, an official pixel preset, or custom dimensions."
+    form: form
+  - name: width
+    type: number
+    required: false
+    label:
+      en_US: Custom width
+      zh_Hans: 自定义宽度
+    human_description:
+      en_US: "Effective when size is Customize. Width*height must be in [921600, 4624220], with aspect ratio in [1/16, 16]."
+      zh_Hans: "仅在尺寸为“自定义”时生效。宽×高须在 [921600, 4624220] 内，宽高比须在 [1/16, 16] 内。"
+    llm_description: "Custom image width in pixels, used only when size is customize."
+    form: form
+  - name: height
+    type: number
+    required: false
+    label:
+      en_US: Custom height
+      zh_Hans: 自定义高度
+    human_description:
+      en_US: "Effective when size is Customize. Width*height must be in [921600, 4624220], with aspect ratio in [1/16, 16]."
+      zh_Hans: "仅在尺寸为“自定义”时生效。宽×高须在 [921600, 4624220] 内，宽高比须在 [1/16, 16] 内。"
+    llm_description: "Custom image height in pixels, used only when size is customize."
+    form: form
+  - name: output_format
+    type: select
+    required: false
+    default: "jpeg"
+    label:
+      en_US: Output format
+      zh_Hans: 输出格式
+    options:
+      - label:
+          zh_Hans: "jpeg"
+          en_US: "jpeg"
+        value: "jpeg"
+      - label:
+          zh_Hans: "png"
+          en_US: "png"
+        value: "png"
+    human_description:
+      en_US: "Output image format. Default: jpeg."
+      zh_Hans: "输出图片格式，默认 jpeg。"
+    llm_description: "Output image format: jpeg or png."
+    form: form
+  - name: watermark
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Watermark
+      zh_Hans: 水印
+    human_description:
+      en_US: "Whether to add the AI-generated watermark."
+      zh_Hans: "是否在图片右下角添加“AI生成”水印。"
+    llm_description: "Whether to add an AI-generated watermark. Default: false."
+    form: form
+extra:
+  python:
+    source: tools/createimage_sr_50_pro.py

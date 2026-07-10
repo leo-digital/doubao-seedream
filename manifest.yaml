@@ -1,4 +1,4 @@
-version: 1.0.1
+version: 1.1.0
 type: plugin
 author: leo-digital
 name: doubao-seedream
@@ -8,10 +8,10 @@ label:
   zh_Hans: 豆包Seedream
   pt_BR: Doubao Seedream
 description:
-  en_US: Generate images using the Doubao Seedream V4.5 and 5.0-lite models.
-  ja_JP: 豆包Seedream V4.5 および 5.0-lite モデルを使用して画像を生成します。
-  zh_Hans: 使用豆包Seedream V4.5 和 5.0-lite 模型实现图片生成。
-  pt_BR: Gerar imagens usando os modelos Doubao Seedream V4.5 e 5.0-lite.
+  en_US: Generate images using the Doubao Seedream V4.5, 5.0-lite, and 5.0-pro models.
+  ja_JP: 豆包Seedream V4.5、5.0-lite、5.0-pro モデルを使用して画像を生成します。
+  zh_Hans: 使用豆包Seedream V4.5、5.0-lite 和 5.0-pro 模型实现图片生成。
+  pt_BR: Gerar imagens usando os modelos Doubao Seedream V4.5, 5.0-lite e 5.0-pro.
 icon: icon.png
 icon_dark: icon-dark.png
 resource:
@@ -23,7 +23,7 @@ plugins:
   tools:
     - provider/doubao-seedream.yaml
 meta:
-  version: 1.0.1
+  version: 1.1.0
   arch:
     - amd64
     - arm64

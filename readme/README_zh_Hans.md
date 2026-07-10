@@ -1,6 +1,6 @@
 # 豆包 Seedream 插件
 
-使用火山引擎（Volcengine）的 **Doubao Seedream V4.5** 与 **Seedream 5.0-lite** 模型，实现高质量的图片生成功能。
+使用火山引擎（Volcengine）的 **Doubao Seedream V4.5**、**Seedream 5.0-lite** 与 **Seedream 5.0-pro** 模型，实现高质量的图片生成功能。
 
 ## 功能特性
 
@@ -9,6 +9,7 @@
 - **组图生成**：支持一次性生成多张连贯的图片（最多15张）。
 - **高度定制**：支持 2K、3K 尺寸，或自定义宽高比。
 - **更多能力（5.0-lite）**：支持输出 PNG，支持联网搜索（可选）。
+- **高精度生成（5.0-pro）**：支持文生单图、单图生图和最多 10 张参考图的多图生图。
 
 ## 配置指南
 
@@ -25,8 +26,10 @@
 | **图生图 (Image-to-Image)** | 基于参考图和文字生成 | `prompt`, `image`, `sequential_image_generation` (组图) |
 | **创建图片 (Create Image)** | 通用生成接口 | `prompt`, `size`, `model` |
 | **图片生成 5.0-lite** | 支持 3K、PNG、联网搜索 | `prompt`, `size`, `output_format`, `web_search`, `image`, `sequential_image_generation` |
+| **图片生成 5.0-pro** | 高精度单图生成与编辑，支持 1K/2K、PNG/JPEG | `prompt`, `size`, `output_format`, `image`, `image_urls`, `watermark` |
 
 ## 注意事项
 
 - 生成的图片 URL 有效期通常为 **24小时**。
 - 自定义尺寸需满足总像素在指定范围内且比例在 1/16 到 16 之间。
+- Seedream 5.0-pro 仅生成单图，不支持组图生成、联网搜索或流式输出。
