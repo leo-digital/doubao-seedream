@@ -48,12 +48,12 @@ parameters:
     type: string
     required: false
     label:
-      en_US: Reference image URLs
-      zh_Hans: 参考图片 URL
+      en_US: Reference image URLs (optional)
+      zh_Hans: 参考图片 URL（可选）
     human_description:
-      en_US: "Comma-separated reference image URLs. Uploaded images and URLs combined must not exceed 10."
-      zh_Hans: "以逗号分隔的参考图片 URL；与上传图片合计最多 10 张。"
-    llm_description: "Comma-separated reference image URLs; combined with uploaded images, up to 10."
+      en_US: "Enter one or more reference image URLs, separated by commas. Support up to 10 images."
+      zh_Hans: "可输入一个或多个参考图片 URL，多个 URL 请用英文逗号分隔，支持最多 10 张。"
+    llm_description: "Optional comma-separated reference image URLs, up to 10 images."
     form: form
   - name: size
     type: select
