@@ -1,77 +1,74 @@
-# 豆包 Seedream Dify 插件
+# Doubao Seedream Plugin for Dify
 
-**简体中文** | [English](docs/en-US/README.md)
+**English** | [Simplified Chinese](readme/README_zh_Hans.md)
 
 [![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/leo-digital/doubao-seedream)
 [![Latest Model](https://img.shields.io/badge/latest-Seedream_5.0_Pro-brightgreen)](https://www.volcengine.com/docs/82379/1824121)
 [![Dify Plugin](https://img.shields.io/badge/Dify-Plugin-orange)](https://dify.ai/)
 
-本项目为 Dify 插件，集成火山引擎豆包 Seedream V4.5、5.0-lite 与 5.0-pro 模型，带来高质量的 AI 图片生成能力。
+A Dify plugin that integrates Volcengine's Doubao Seedream V4.5, Seedream 5.0-lite, and Seedream 5.0-pro models, providing high-quality AI image generation capabilities.
 
-## 最新更新
+## Latest Updates
 
 ### v1.1.0 — 2026-07-10
 
-- 新增 **图片生成 (5.0-pro)** 工具，使用模型 `doubao-seedream-5-0-pro-260628`。
-- 支持文生单图、单图参考编辑，以及最多 10 张输入图的多图参考生成。
-- 支持 1K/2K 分辨率档位、官方宽高比预设、自定义尺寸，以及 PNG/JPEG 输出。
+- Added the **ImageGenerations (5.0-pro)** tool using model `doubao-seedream-5-0-pro-260628`.
+- Added text-to-single-image, single-reference editing, and multi-reference generation with up to 10 input images.
+- Added 1K/2K resolution tiers, official aspect-ratio presets, custom dimensions, and PNG/JPEG output.
 
-完整版本历史请查看[更新日志](docs/zh-CN/CHANGELOG.md)。
+See the [full changelog](docs/en-US/CHANGELOG.md) for the complete release history.
 
-## 功能特性
+## Features
 
-- **文生图**：根据文本描述生成高清图片。
-- **图生图**：基于参考图和提示词生成新图片。
-- **批量生成**：单次请求可生成多张连贯图片（最多 15 张）。
-- **灵活定制**：支持各模型专属分辨率预设和自定义宽高比。
-- **高精度生成**：Seedream 5.0-pro 支持单图生成与编辑，最多 10 张参考图。
-- **水印控制**：可开关生成图片的水印。
+- **Text-to-Image**: Generate high-definition images from text descriptions.
+- **Image-to-Image**: Create new images based on a reference image and a prompt.
+- **Batch Generation**: Support for generating multiple coherent images (up to 15) in one request.
+- **Flexible Customization**: Support for model-specific resolution presets and customizable aspect ratios.
+- **High-precision Generation**: Seedream 5.0-pro supports single-image generation and editing with up to 10 reference images.
+- **Watermark Control**: Option to toggle watermarks on generated images.
 
-## 可用工具
+## Available Tools
 
-| Dify 工具 | 模型 ID | 主要能力 | 插件尺寸选项 | 输出格式 |
+| Dify Tool | Model ID | Main Capabilities | Plugin Size Options | Output Formats |
 | :--- | :--- | :--- | :--- | :--- |
-| **图片生成 (4.5)** | `doubao-seedream-4-5-251128` | 文生图、图生图、组图生成 | 2K、4K、自定义 | JPEG |
-| **图片生成 (5.0-lite)** | `doubao-seedream-5-0-260128` | 文生图、图生图、组图生成、联网搜索 | 2K、3K、自定义 | JPEG、PNG |
-| **图片生成 (5.0-pro)** | `doubao-seedream-5-0-pro-260628` | 高精度文生单图、参考图生成 | 1K、2K、自定义 | JPEG、PNG |
+| **ImageGenerations (4.5)** | `doubao-seedream-4-5-251128` | Text-to-image, image-to-image, group generation | 2K, 4K, custom | JPEG |
+| **ImageGenerations (5.0-lite)** | `doubao-seedream-5-0-260128` | Text/image generation, group generation, web search | 2K, 3K, custom | JPEG, PNG |
+| **ImageGenerations (5.0-pro)** | `doubao-seedream-5-0-pro-260628` | High-precision text-to-single-image and reference-based generation | 1K, 2K, custom | JPEG, PNG |
 
-### 参数说明
+### Parameter Highlights
 
-- prompt：图片生成提示词（支持中英文）。
-- sequential_image_generation：设为 True 可生成一组关联图片（最多 15 张）。
-- image：图生图任务的参考图片。
-- size：多种预设（V4.5：2K/4K；5.0-lite：2K/3K；5.0-pro：1K/2K）、宽高比预设，或 customize 指定具体尺寸。
-- width/height：size 设为 customize 时必填。5.0-pro 总像素须在 [921,600, 4,624,220] 内，宽高比须在 1/16 至 16 之间。
-- watermark：是否为生成图片添加水印（默认：False）。
-- output_format（5.0-lite/5.0-pro）：输出图片格式，jpeg 或 png（默认：jpeg）。
-- web_search（5.0-lite）：启用联网搜索工具（由模型决定是否搜索）。
+- prompt: Text prompt to generate an image (Supports Chinese and English).
+- sequential_image_generation: Set to True for generating a group of related images (up to 15).
+- image: Reference image(s) for Image-to-Image tasks.
+- size: Multiple presets (V4.5: 2K/4K; 5.0-lite: 2K/3K; 5.0-pro: 1K/2K), aspect-ratio presets, or customize for specific dimensions.
+- width/height: Required when size is set to customize. For 5.0-pro, total pixels must be in [921,600, 4,624,220], with an aspect ratio between 1/16 and 16.
+- watermark: Whether to add a watermark to the generated images (Default: False).
+- output_format (5.0-lite/5.0-pro): Output image format, jpeg or png (Default: jpeg).
+- web_search (5.0-lite): Enable web search tool (the model decides whether to search).
 
-Seedream 5.0-pro 始终返回单张图片，不支持组图生成、联网搜索或流式输出。
+Seedream 5.0-pro always returns a single image and does not support group generation, web search, or streaming output.
 
-## 安装
+## Installation
 
-### Dify 用户
+### For Dify Users
 
-使用本插件需在 Dify 插件设置中配置以下凭据：
+To use this plugin, you need to configure the following credentials in the Dify plugin settings:
+1. Go to **Plugins** in your Dify dashboard.
+2. Click on **Install from GitHub** or upload the plugin package.
+3. **Ark API Key**: Your API key obtained from the [Volcengine Ark Console](https://console.volcengine.com/ark).
+4. **Ark Base URL**: The default is `https://ark.cn-beijing.volces.com/api/v3`.
 
-1. 进入 Dify 控制台的**插件**页面。
-2. 点击**从 GitHub 安装**或上传插件包。
-3. **Ark API Key**：从[火山方舟控制台](https://console.volcengine.com/ark)获取的 API 密钥。
-4. **Ark Base URL**：默认为 `https://ark.cn-beijing.volces.com/api/v3`。
-
-### 开发者
-
-如需修改插件，请确保安装以下依赖：
-
+### For Developers
+If you want to modify the plugin, ensure you have the following dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## 重要说明
+## Important Notes
 
-- **图片有效期**：生成图片的 URL 通常有效期为 **24 小时**。
-- **尺寸限制**：自定义尺寸时，宽高比须在 1/16 至 16 之间。
+- **Image Expiry**: Generated image URLs are typically valid for **24 hours**.
+- **Dimension Constraints**: For custom sizes, the aspect ratio must be between 1/16 and 16.
 
-## 隐私政策
+## License
 
-本项目隐私条款见 [PRIVACY.md](PRIVACY.md)。
+This project is licensed under the terms specified in [PRIVACY.md](PRIVACY.md).
