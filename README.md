@@ -2,13 +2,17 @@
 
 **English** | [Simplified Chinese](readme/README_zh_Hans.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/leo-digital/doubao-seedream)
+[![Version](https://img.shields.io/badge/version-1.1.1-blue)](https://github.com/leo-digital/doubao-seedream)
 [![Latest Model](https://img.shields.io/badge/latest-Seedream_5.0_Pro-brightgreen)](https://www.volcengine.com/docs/82379/1824121)
 [![Dify Plugin](https://img.shields.io/badge/Dify-Plugin-orange)](https://dify.ai/)
 
 A Dify plugin that integrates Volcengine's Doubao Seedream V4.5, Seedream 5.0-lite, and Seedream 5.0-pro models, providing high-quality AI image generation capabilities.
 
 ## Latest Updates
+
+### v1.1.1 - 2026-07-15
+
+- Updated the plugin icon.
 
 ### v1.1.0 — 2026-07-10
 

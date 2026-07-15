@@ -2,13 +2,17 @@
 
 [English](../README.md) | **Simplified Chinese**
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/leo-digital/doubao-seedream)
+[![Version](https://img.shields.io/badge/version-1.1.1-blue)](https://github.com/leo-digital/doubao-seedream)
 [![Latest Model](https://img.shields.io/badge/latest-Seedream_5.0_Pro-brightgreen)](https://www.volcengine.com/docs/82379/1824121)
 [![Dify Plugin](https://img.shields.io/badge/Dify-Plugin-orange)](https://dify.ai/)
 
 本项目为 Dify 插件，集成火山引擎豆包 Seedream V4.5、5.0-lite 与 5.0-pro 模型，带来高质量的 AI 图片生成能力。
 
 ## 最新更新
+
+### v1.1.1 - 2026-07-15
+
+- 更新插件的 icon 图标。
 
 ### v1.1.0 — 2026-07-10
 

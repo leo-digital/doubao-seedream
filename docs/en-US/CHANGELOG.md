@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2026-07-15
+
+### Changed
+
+- Updated the plugin icon.
+
 ## [1.1.0] - 2026-07-10
 
 ### Added
