@@ -1,0 +1,427 @@
+identity:
+  name: ImageGenerations55
+  author: leo-digital
+  label:
+    en_US: ImageGenerations (5.5)
+    zh_Hans: 图片生成5.5
+description:
+  human:
+    en_US: Generate and edit images, create transparent PNGs, or decompose an image into layers with rich-text OCR
+      using Seedream 5.5.
+    zh_Hans: 使用 Seedream 5.5 生成或编辑图片、生成透明 PNG，或拆分图层并返回富文本 OCR。
+  llm: Generate one image from text and up to 10 reference images, including transparent PNGs. Alternatively decompose
+    exactly one image into a base image and layers, optionally with rich-text OCR. No group generation, web search,
+    or streaming.
+output_schema:
+  type: object
+  properties:
+    images:
+      type: array
+      items:
+        type: object
+        properties:
+          url:
+            type: string
+          size:
+            type: string
+          output_format:
+            type: string
+          background:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          z_index:
+            type: integer
+          bounding_box:
+            type: object
+            properties:
+              absolute:
+                type: array
+                items:
+                  type: integer
+                minItems: 4
+                maxItems: 4
+              normalized:
+                type: array
+                items:
+                  type: integer
+                minItems: 4
+                maxItems: 4
+          text_recognition:
+            type: object
+            properties:
+              text:
+                type: string
+              lines:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    bounding_box:
+                      type: object
+                      properties:
+                        absolute:
+                          type: array
+                          items:
+                            type: integer
+                          minItems: 4
+                          maxItems: 4
+                        normalized:
+                          type: array
+                          items:
+                            type: integer
+                          minItems: 4
+                          maxItems: 4
+                    runs:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          text:
+                            type: string
+                          style:
+                            type: object
+                            properties:
+                              similar_font_family:
+                                type: string
+                              foreground_color:
+                                type: string
+                              bold:
+                                type: boolean
+                              italic:
+                                type: boolean
+                              underline:
+                                type: boolean
+                              strikethrough:
+                                type: boolean
+                              shadow:
+                                type: boolean
+                              translucent:
+                                type: boolean
+parameters:
+- name: layer_decomposition
+  type: boolean
+  required: false
+  default: false
+  label:
+    en_US: Layer decomposition
+    zh_Hans: 图层拆分
+  human_description:
+    en_US: 'Split exactly one input image into a base image and transparent layers. Default: false.'
+    zh_Hans: 将一张图片拆分为底图和透明图层，默认关闭。
+  llm_description: 'Split exactly one input image into a base image and transparent layers. Default: false.'
+  form: form
+- name: prompt
+  type: string
+  required: false
+  label:
+    en_US: Prompt words for image generation
+    zh_Hans: 文本提示词
+  human_description:
+    en_US: Required for image generation; optional for layer decomposition. Leave blank to split major elements
+      automatically.
+    zh_Hans: 普通生图必填；图层拆分可留空，模型会自动识别并拆分主要元素。
+  llm_description: Required for image generation; optional for layer decomposition. Leave blank to split major elements
+    automatically.
+  form: form
+- name: image
+  type: files
+  required: false
+  label:
+    en_US: Reference images
+    zh_Hans: 参考图片
+  human_description:
+    en_US: Reference image list (up to 10 images). Layer decomposition requires exactly one PNG/JPEG image across
+      both input fields.
+    zh_Hans: 参考图片列表（最多 10 张）。 图层拆分时两个输入字段合计必须为一张 PNG/JPEG 图片。
+  llm_description: Reference image list (up to 10 images). Layer decomposition requires exactly one PNG/JPEG image
+    across both input fields.
+  form: form
+- name: image_urls
+  type: string
+  required: false
+  label:
+    en_US: Reference image URLs (optional)
+    zh_Hans: 参考图片 URL（可选）
+  human_description:
+    en_US: Enter one or more reference image URLs, separated by commas. Support up to 10 images. Layer decomposition
+      requires exactly one PNG/JPEG image across both input fields.
+    zh_Hans: 可输入一个或多个参考图片 URL，多个 URL 请用英文逗号分隔，支持最多 10 张。 图层拆分时两个输入字段合计必须为一张 PNG/JPEG 图片。
+  llm_description: Enter one or more reference image URLs, separated by commas. Support up to 10 images. Layer decomposition
+    requires exactly one PNG/JPEG image across both input fields.
+  form: form
+- name: size
+  type: select
+  required: false
+  default: 2K
+  label:
+    en_US: Generation size
+    zh_Hans: 生图尺寸
+  options:
+  - label:
+      en_US: 1K
+      zh_Hans: 1K
+    value: 1K
+  - label:
+      en_US: 1.5K
+      zh_Hans: 1.5K
+    value: 1.5K
+  - label:
+      en_US: 2K
+      zh_Hans: 2K
+    value: 2K
+  - label:
+      en_US: 1K 1:1[1024x1024]
+      zh_Hans: 1K 1:1[1024x1024]
+    value: 1024x1024
+  - label:
+      en_US: 1K 4:3[1152x864]
+      zh_Hans: 1K 4:3[1152x864]
+    value: 1152x864
+  - label:
+      en_US: 1K 3:4[864x1152]
+      zh_Hans: 1K 3:4[864x1152]
+    value: 864x1152
+  - label:
+      en_US: 1K 16:9[1424x800]
+      zh_Hans: 1K 16:9[1424x800]
+    value: 1424x800
+  - label:
+      en_US: 1K 9:16[800x1424]
+      zh_Hans: 1K 9:16[800x1424]
+    value: 800x1424
+  - label:
+      en_US: 1K 3:2[1248x832]
+      zh_Hans: 1K 3:2[1248x832]
+    value: 1248x832
+  - label:
+      en_US: 1K 2:3[832x1248]
+      zh_Hans: 1K 2:3[832x1248]
+    value: 832x1248
+  - label:
+      en_US: 1K 21:9[1568x672]
+      zh_Hans: 1K 21:9[1568x672]
+    value: 1568x672
+  - label:
+      en_US: 1.5K 1:1[1536x1536]
+      zh_Hans: 1.5K 1:1[1536x1536]
+    value: 1536x1536
+  - label:
+      en_US: 1.5K 4:3[1792x1344]
+      zh_Hans: 1.5K 4:3[1792x1344]
+    value: 1792x1344
+  - label:
+      en_US: 1.5K 3:4[1344x1792]
+      zh_Hans: 1.5K 3:4[1344x1792]
+    value: 1344x1792
+  - label:
+      en_US: 1.5K 16:9[2048x1152]
+      zh_Hans: 1.5K 16:9[2048x1152]
+    value: 2048x1152
+  - label:
+      en_US: 1.5K 9:16[1152x2048]
+      zh_Hans: 1.5K 9:16[1152x2048]
+    value: 1152x2048
+  - label:
+      en_US: 1.5K 3:2[1872x1248]
+      zh_Hans: 1.5K 3:2[1872x1248]
+    value: 1872x1248
+  - label:
+      en_US: 1.5K 2:3[1248x1872]
+      zh_Hans: 1.5K 2:3[1248x1872]
+    value: 1248x1872
+  - label:
+      en_US: 1.5K 21:9[2352x1008]
+      zh_Hans: 1.5K 21:9[2352x1008]
+    value: 2352x1008
+  - label:
+      en_US: 2K 1:1[2048x2048]
+      zh_Hans: 2K 1:1[2048x2048]
+    value: 2048x2048
+  - label:
+      en_US: 2K 4:3[2368x1776]
+      zh_Hans: 2K 4:3[2368x1776]
+    value: 2368x1776
+  - label:
+      en_US: 2K 3:4[1776x2368]
+      zh_Hans: 2K 3:4[1776x2368]
+    value: 1776x2368
+  - label:
+      en_US: 2K 16:9[2816x1584]
+      zh_Hans: 2K 16:9[2816x1584]
+    value: 2816x1584
+  - label:
+      en_US: 2K 9:16[1584x2816]
+      zh_Hans: 2K 9:16[1584x2816]
+    value: 1584x2816
+  - label:
+      en_US: 2K 3:2[2496x1664]
+      zh_Hans: 2K 3:2[2496x1664]
+    value: 2496x1664
+  - label:
+      en_US: 2K 2:3[1664x2496]
+      zh_Hans: 2K 2:3[1664x2496]
+    value: 1664x2496
+  - label:
+      en_US: 2K 21:9[3136x1344]
+      zh_Hans: 2K 21:9[3136x1344]
+    value: 3136x1344
+  - label:
+      en_US: Customize
+      zh_Hans: 自定义
+    value: customize
+  human_description:
+    en_US: 'Image generation only: 1K/1.5K/2K, an official pixel preset, or custom dimensions. Ignored during layer
+      decomposition.'
+    zh_Hans: 仅普通生图有效：1K/1.5K/2K、官方像素预设或自定义宽高。图层拆分时忽略。
+  llm_description: 'Image generation only: 1K/1.5K/2K, an official pixel preset, or custom dimensions. Ignored during
+    layer decomposition.'
+  form: form
+- name: width
+  type: number
+  required: false
+  label:
+    en_US: Custom width
+    zh_Hans: 自定义宽度
+  human_description:
+    en_US: Effective when size is Customize. Width*height must be in [921600, 4624220], with aspect ratio in [1/16,
+      16].
+    zh_Hans: 仅在尺寸为“自定义”时生效。宽×高须在 [921600, 4624220] 内，宽高比须在 [1/16, 16] 内。
+  llm_description: Custom image width in pixels, used only when size is customize.
+  form: form
+- name: height
+  type: number
+  required: false
+  label:
+    en_US: Custom height
+    zh_Hans: 自定义高度
+  human_description:
+    en_US: Effective when size is Customize. Width*height must be in [921600, 4624220], with aspect ratio in [1/16,
+      16].
+    zh_Hans: 仅在尺寸为“自定义”时生效。宽×高须在 [921600, 4624220] 内，宽高比须在 [1/16, 16] 内。
+  llm_description: Custom image height in pixels, used only when size is customize.
+  form: form
+- name: layer_size
+  type: select
+  required: false
+  default: auto
+  label:
+    en_US: Layer decomposition size
+    zh_Hans: 图层拆分尺寸
+  human_description:
+    en_US: Layer decomposition only. Auto adapts to the input image dimensions.
+    zh_Hans: 仅图层拆分有效，auto 根据输入图片尺寸适配。
+  llm_description: Layer decomposition only. Auto adapts to the input image dimensions.
+  form: form
+  options:
+  - label:
+      en_US: auto
+      zh_Hans: auto
+    value: auto
+  - label:
+      en_US: 1K
+      zh_Hans: 1K
+    value: 1K
+  - label:
+      en_US: 1.5K
+      zh_Hans: 1.5K
+    value: 1.5K
+  - label:
+      en_US: 2K
+      zh_Hans: 2K
+    value: 2K
+- name: max_images
+  type: number
+  required: false
+  default: 30
+  label:
+    en_US: Maximum output images
+    zh_Hans: 最大输出图片数
+  human_description:
+    en_US: 'Layer decomposition only: integer from 2 to 100, including the base image. Default 30. Actual count
+      may be lower.'
+    zh_Hans: 仅图层拆分有效：2–100 的整数，包含底图，默认 30。实际输出可能少于此值。
+  llm_description: 'Layer decomposition only: integer from 2 to 100, including the base image. Default 30. Actual
+    count may be lower.'
+  form: form
+- name: text_recognition
+  type: boolean
+  required: false
+  default: false
+  label:
+    en_US: Rich-text OCR
+    zh_Hans: 富文本 OCR
+  human_description:
+    en_US: Layer decomposition only. Return text, line coordinates and approximate styles for regular text layers.
+      Artistic/handwritten text may have no OCR.
+    zh_Hans: 仅图层拆分有效。返回规整文字的内容、逐行坐标和近似样式；艺术字、手写体可能不返回 OCR。
+  llm_description: Layer decomposition only. Return text, line coordinates and approximate styles for regular text
+    layers. Artistic/handwritten text may have no OCR.
+  form: form
+- name: output_format
+  type: select
+  required: false
+  default: png
+  label:
+    en_US: Output format
+    zh_Hans: 输出格式
+  options:
+  - label:
+      zh_Hans: jpeg
+      en_US: jpeg
+    value: jpeg
+  - label:
+      zh_Hans: png
+      en_US: png
+    value: png
+  human_description:
+    en_US: Default PNG. Transparent backgrounds require PNG. In layer mode this controls the base image only; layers
+      are always PNG.
+    zh_Hans: 默认 PNG。透明背景必须使用 PNG；图层拆分时仅控制底图格式，其他图层始终为 PNG。
+  llm_description: Default PNG. Transparent backgrounds require PNG. In layer mode this controls the base image
+    only; layers are always PNG.
+  form: form
+- name: background
+  type: select
+  required: false
+  default: auto
+  label:
+    en_US: Background
+    zh_Hans: 背景类型
+  human_description:
+    en_US: Image generation only. Auto follows the prompt; transparent requires PNG; opaque is recommended for consistent
+      multi-turn editing.
+    zh_Hans: 仅普通生图有效。auto 根据提示词判断；transparent 要求 PNG；多轮编辑建议 opaque。
+  llm_description: Image generation only. Auto follows the prompt; transparent requires PNG; opaque is recommended
+    for consistent multi-turn editing.
+  form: form
+  options:
+  - label:
+      en_US: auto
+      zh_Hans: auto
+    value: auto
+  - label:
+      en_US: transparent
+      zh_Hans: transparent
+    value: transparent
+  - label:
+      en_US: opaque
+      zh_Hans: opaque
+    value: opaque
+- name: watermark
+  type: boolean
+  required: false
+  default: false
+  label:
+    en_US: Watermark
+    zh_Hans: 水印
+  human_description:
+    en_US: Whether to add the AI-generated watermark.
+    zh_Hans: 是否在图片右下角添加“AI生成”水印。
+  llm_description: 'Whether to add an AI-generated watermark. Default: false.'
+  form: form
+extra:
+  python:
+    source: tools/createimage_sr_55.py

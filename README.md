@@ -2,13 +2,18 @@
 
 **English** | [Simplified Chinese](readme/README_zh_Hans.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.1-blue)](https://github.com/leo-digital/doubao-seedream)
-[![Latest Model](https://img.shields.io/badge/latest-Seedream_5.0_Pro-brightgreen)](https://www.volcengine.com/docs/82379/1824121)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue)](https://github.com/leo-digital/doubao-seedream)
+[![Latest Model](https://img.shields.io/badge/latest-Seedream_5.5-brightgreen)](https://docs.volcengine.com/docs/ark/seedream-5-5?lang=zh)
 [![Dify Plugin](https://img.shields.io/badge/Dify-Plugin-orange)](https://dify.ai/)
 
-A Dify plugin that integrates Volcengine's Doubao Seedream V4.5, Seedream 5.0-lite, and Seedream 5.0-pro models, providing high-quality AI image generation capabilities.
+A Dify plugin that integrates Volcengine's Doubao Seedream V4.5, Seedream 5.0-lite, Seedream 5.0-pro, and Seedream 5.5 models, providing high-quality AI image generation capabilities.
 
 ## Latest Updates
+
+### v1.2.0 — 2026-11-13
+
+- Added **ImageGenerations (5.5)** (`doubao-seedream-5-5-261028`) with image generation/editing, transparent backgrounds, layer decomposition and rich-text OCR.
+- Supports 1K/1.5K/2K, up to 10 reference images, and up to 100 decomposition outputs including the base image.
 
 ### v1.1.1 - 2026-07-15
 
@@ -38,6 +43,7 @@ See the [full changelog](docs/en-US/CHANGELOG.md) for the complete release histo
 | **ImageGenerations (4.5)** | `doubao-seedream-4-5-251128` | Text-to-image, image-to-image, group generation | 2K, 4K, custom | JPEG |
 | **ImageGenerations (5.0-lite)** | `doubao-seedream-5-0-260128` | Text/image generation, group generation, web search | 2K, 3K, custom | JPEG, PNG |
 | **ImageGenerations (5.0-pro)** | `doubao-seedream-5-0-pro-260628` | High-precision text-to-single-image and reference-based generation | 1K, 2K, custom | JPEG, PNG |
+| **ImageGenerations (5.5)** | `doubao-seedream-5-5-261028` | Single-image generation/editing, transparent backgrounds, layer decomposition, rich-text OCR | 1K, 1.5K, 2K, custom; auto for decomposition | PNG (default), JPEG |
 
 ### Parameter Highlights
 
@@ -51,6 +57,24 @@ See the [full changelog](docs/en-US/CHANGELOG.md) for the complete release histo
 - web_search (5.0-lite): Enable web search tool (the model decides whether to search).
 
 Seedream 5.0-pro always returns a single image and does not support group generation, web search, or streaming output.
+
+## Using Seedream 5.5
+
+Add **ImageGenerations (5.5)** to your workflow with your existing Ark credentials.
+
+- **Generate or edit:** Enter a prompt and optionally add up to 10 reference images through `image` or `image_urls`. Choose 1K, 1.5K, 2K (default), or custom dimensions.
+- **Split into layers:** Set `layer_decomposition=true` and provide one PNG/JPEG image. The prompt is optional. Set `max_images` to 2–100 (default 30, including the base image), and enable `text_recognition` for text and style recognition.
+
+**Examples**
+
+- Transparent sticker: prompt “A coffee cup sticker”, `background=transparent`, `output_format=png`.
+- Poster layers with OCR: upload one poster, set `layer_decomposition=true` and `text_recognition=true`.
+
+Output defaults to PNG with watermarks off. For decomposition, `layer_size` defaults to `auto`; layers are always PNG.
+
+Results include image previews and an `images` array with URLs, sizes, and available layer/OCR metadata. Seedream 5.5 does not support group generation, web search, or streaming.
+
+See the [5.5 tutorial](https://docs.volcengine.com/docs/ark/seedream-5-5?lang=zh) and [API reference](https://docs.volcengine.com/docs/ark/image-generation-api?lang=zh) for details.
 
 ## Installation
 

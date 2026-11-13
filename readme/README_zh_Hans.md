@@ -2,13 +2,18 @@
 
 [English](../README.md) | **Simplified Chinese**
 
-[![Version](https://img.shields.io/badge/version-1.1.1-blue)](https://github.com/leo-digital/doubao-seedream)
-[![Latest Model](https://img.shields.io/badge/latest-Seedream_5.0_Pro-brightgreen)](https://www.volcengine.com/docs/82379/1824121)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue)](https://github.com/leo-digital/doubao-seedream)
+[![Latest Model](https://img.shields.io/badge/latest-Seedream_5.5-brightgreen)](https://docs.volcengine.com/docs/ark/seedream-5-5?lang=zh)
 [![Dify Plugin](https://img.shields.io/badge/Dify-Plugin-orange)](https://dify.ai/)
 
-本项目为 Dify 插件，集成火山引擎豆包 Seedream V4.5、5.0-lite 与 5.0-pro 模型，带来高质量的 AI 图片生成能力。
+本项目为 Dify 插件，集成火山引擎豆包 Seedream V4.5、5.0-lite、5.0-pro 与 5.5 模型，带来高质量的 AI 图片生成能力。
 
 ## 最新更新
+
+### v1.2.0 — 2026-11-13
+
+- 新增 **图片生成5.5**（`doubao-seedream-5-5-261028`），支持普通生图、透明背景、图层拆分与富文本 OCR。
+- 支持 1K/1.5K/2K、最多 10 张参考图；拆分最多输出 100 张图片（包含底图）。
 
 ### v1.1.1 - 2026-07-15
 
@@ -38,6 +43,7 @@
 | **图片生成 (4.5)** | `doubao-seedream-4-5-251128` | 文生图、图生图、组图生成 | 2K、4K、自定义 | JPEG |
 | **图片生成 (5.0-lite)** | `doubao-seedream-5-0-260128` | 文生图、图生图、组图生成、联网搜索 | 2K、3K、自定义 | JPEG、PNG |
 | **图片生成 (5.0-pro)** | `doubao-seedream-5-0-pro-260628` | 高精度文生单图、参考图生成 | 1K、2K、自定义 | JPEG、PNG |
+| **图片生成5.5** | `doubao-seedream-5-5-261028` | 单图生成/编辑、透明背景、图层拆分、富文本 OCR | 1K、1.5K、2K、自定义；拆分另支持 auto | PNG（默认）、JPEG |
 
 ### 参数说明
 
@@ -51,6 +57,24 @@
 - web_search（5.0-lite）：启用联网搜索工具（由模型决定是否搜索）。
 
 Seedream 5.0-pro 始终返回单张图片，不支持组图生成、联网搜索或流式输出。
+
+## Seedream 5.5 使用方式
+
+在工作流中添加 **图片生成5.5**，复用已有 Ark 凭据。
+
+- **生图与编辑**：填写提示词，可通过 `image` 或 `image_urls` 添加最多 10 张参考图。支持 1K、1.5K、2K（默认）和自定义尺寸。
+- **图层拆分**：设置 `layer_decomposition=true`，传入一张 PNG/JPEG，提示词可留空。`max_images` 可设为 2–100（默认 30，含底图）；开启 `text_recognition` 可识别文字及样式。
+
+**示例**
+
+- 透明贴纸：提示词“咖啡杯贴纸”，设置 `background=transparent`、`output_format=png`。
+- 海报拆分与 OCR：上传一张海报，设置 `layer_decomposition=true`、`text_recognition=true`。
+
+默认输出 PNG，不加水印。拆分尺寸 `layer_size` 默认为 `auto`，图层始终为 PNG。
+
+结果包含图片预览和 `images` 数组，提供图片 URL、尺寸及可用的图层/OCR 信息。5.5 不支持组图生成、联网搜索或流式输出。
+
+更多参数见 [5.5 教程](https://docs.volcengine.com/docs/ark/seedream-5-5?lang=zh)和 [API 文档](https://docs.volcengine.com/docs/ark/image-generation-api?lang=zh)。
 
 ## 安装
 

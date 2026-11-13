@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0] - 2026-11-13
+
+### Added
+
+- Added Seedream 5.5 (`doubao-seedream-5-5-261028`) as a separate tool, retaining the existing tools.
+- Added 1K/1.5K/2K and custom sizes, transparent PNG generation and up to 10 references.
+- Added single-image layer decomposition (2–100 outputs including the base image) and optional rich-text OCR with coordinates and styles.
+- Added mocked HTTP/SDK and Dify registration tests.
+
 ## [1.1.1] - 2026-07-15
 
 ### Changed
