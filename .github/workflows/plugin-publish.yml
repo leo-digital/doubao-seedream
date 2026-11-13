@@ -89,8 +89,11 @@ jobs:
           ls -la
 
           # Move the packaged file to the target directory using variables
-          mkdir -p dify-plugins/${{ steps.get_basic_info.outputs.author }}/${{ steps.get_basic_info.outputs.plugin_name }}
-          mv "$PACKAGE_NAME" dify-plugins/${{ steps.get_basic_info.outputs.author }}/${{ steps.get_basic_info.outputs.plugin_name }}/
+          PLUGIN_DIRECTORY="dify-plugins/${{ steps.get_basic_info.outputs.author }}/${{ steps.get_basic_info.outputs.plugin_name }}"
+          mkdir -p "$PLUGIN_DIRECTORY"
+          # Marketplace keeps one version per plugin; older packages remain in Releases.
+          find "$PLUGIN_DIRECTORY" -maxdepth 1 -type f -name '*.difypkg' -delete
+          mv "$PACKAGE_NAME" "$PLUGIN_DIRECTORY/"
 
           # Enter the target repository directory
           cd dify-plugins
@@ -183,6 +186,8 @@ jobs:
           ## Reviewer notes
 
           This version retains the existing 4.5, 5.0-lite and 5.0-pro tool interfaces.
+
+          Removes the 1.1.0 and 1.1.1 packages from the Marketplace directory to comply with the current one-version-per-directory policy. Both versions remain available in [GitHub Releases](https://github.com/leo-digital/doubao-seedream/releases).
           EOF
 
           PR_BRANCH="bump-${{ steps.get_basic_info.outputs.plugin_name }}-plugin-${{ steps.get_basic_info.outputs.version }}"
