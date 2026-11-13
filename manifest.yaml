@@ -2,6 +2,9 @@ version: 1.2.0
 type: plugin
 author: leo-digital
 name: doubao-seedream
+repo: https://github.com/leo-digital/doubao-seedream
+tags:
+  - image
 label:
   en_US: Doubao Seedream
   ja_JP: 豆包Seedream
