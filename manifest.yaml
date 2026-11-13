@@ -3,6 +3,7 @@ type: plugin
 author: leo-digital
 name: doubao-seedream
 repo: https://github.com/leo-digital/doubao-seedream
+contact: opensource@leo.cn
 tags:
   - image
 label:

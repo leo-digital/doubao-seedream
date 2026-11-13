@@ -48,6 +48,9 @@ jobs:
           echo "Plugin author: $AUTHOR"
           echo "author=$AUTHOR" >> $GITHUB_OUTPUT
 
+          CONTACT=$(grep "^contact:" manifest.yaml | cut -d' ' -f2)
+          echo "contact=$CONTACT" >> "$GITHUB_OUTPUT"
+
       - name: Package Plugin
         id: package
         run: |
@@ -138,7 +141,7 @@ jobs:
           - **Plugin name**: ${{ steps.get_basic_info.outputs.plugin_name }}
           - **Version**: ${{ steps.get_basic_info.outputs.version }}
           - **Source repository**: https://github.com/${{ steps.get_basic_info.outputs.author }}/${{ steps.get_basic_info.outputs.plugin_name }}
-          - **Contact**: @${{ steps.get_basic_info.outputs.author }}
+          - **Contact**: ${{ steps.get_basic_info.outputs.contact }}
 
           ## Submission type
 
